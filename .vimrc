@@ -1,27 +1,3 @@
-" Vundle
-filetype off
-
-let g:vundle_default_git_proto = 'git'
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" Bundles
-Bundle 'tpope/vim-fugitive'
-Bundle 'sjl/gundo.vim'
-Bundle 'msanders/snipmate.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'benmills/vimux'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'scrooloose/nerdtree'
-Bundle 'TomNomNom/xoria256.vim'
-Bundle 'tomasr/molokai'
-Bundle 'kien/ctrlp.vim'
-
-" Required for vundle
-"filetype plugin indent on 
-filetype plugin on 
-
 " Highlighting
 syntax on
 
@@ -69,52 +45,6 @@ set expandtab
 
 " Disable mouse
 set mouse=
-
-" Colorscheme
-if &t_Co == 256
-  color xoria256
-endif
-
-" Switch tabs
-map 8 <Esc>:tabe 
-map 9 gT
-map 0 gt
-
-" Gundo toggle
-map <F5> <Esc>:GundoToggle<CR>
-
-" Toggle line-wrap
-map <F6> <Esc>:set wrap!<CR>
-
-" Open file under cursor in new tab
-map <F9> <Esc><C-W>gF<CR>:tabm<CR>
-
-" Direction keys for wrapped lines
-nnoremap <silent> k gk
-nnoremap <silent> j gj
-nnoremap <silent> <Up> gk
-nnoremap <silent> <Down> gj
-inoremap <silent> <Up> <Esc>gka
-inoremap <silent> <Down> <Esc>gja
-
-" Bash / emacs keys for command line
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-
-" Write current file with sudo perms
-"command! W w !sudo tee % > /dev/null
-command! W w
-
-" Open word under cursor as ctag in new tab
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-if $VIMENV == 'talk'
-  set background=light
-  let g:solarized_termcolors=256
-  colo solarized
-  noremap <Space> :n<CR>
-  noremap <Backspace> :N<CR>
-endif
 
 set noesckeys
 

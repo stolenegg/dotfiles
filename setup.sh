@@ -30,8 +30,6 @@ linkDotfile .vimrc
 linkDotfile .ackrc
 linkDotfile .bashrc
 linkDotfile .gitconfig
-linkDotfile .tmux.conf
-linkDotfile .goomwwmrc
 linkDotfile .inputrc
 
 # Update for vundle

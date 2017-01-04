@@ -1,4 +1,4 @@
-HISTCONTROL=ignoredups:ignorespace
+HISTCONTROL=ignoredups
 HISTSIZE=1000
 HISTFILESIZE=2000
 
@@ -6,10 +6,6 @@ HISTFILESIZE=2000
 shopt -s histappend
 
 alias grep='grep --color=auto'
-alias gg='git grep -ni'
-alias phpunit='phpunit --colors'
-alias vimpress="VIMENV=talk vim"
-alias c="composer"
 
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
@@ -53,37 +49,8 @@ txtrst='\[\e[0m\]'    # Text Reset
 export TERM=xterm-256color
 export EDITOR=/usr/bin/vim
 
-
-# Open all modified files in vim tabs
-alias vimod="vim -p \`git status -suall | awk '{print \$2}'\`"
-
 # Switch to git root dir
 alias gr="cd \$(git rev-parse --show-toplevel)"
-
-# Open files modified in a git commit in vim tabs; defaults to HEAD. Pop it in your .bashrc
-# Examples: 
-#     virev 49808d5
-#     virev HEAD~3
-function virev {
-    commit=$1
-    if [ -z "${commit}" ]; then
-      commit="HEAD"
-    fi
-    rootdir=$(git rev-parse --show-toplevel)
-    sourceFiles=$(git show --name-only --pretty="format:" ${commit} | grep -v '^$')
-    toOpen=""
-    for file in ${sourceFiles}; do
-      file="${rootdir}/${file}"
-      if [ -e "${file}" ]; then
-        toOpen="${toOpen} ${file}"
-      fi
-    done
-    if [ -z "${toOpen}" ]; then
-      echo "No files were modified in ${commit}"
-      return 1
-    fi
-    vim -p ${toOpen}
-}
 
 function gitRepoFlags {
   branch=$(__git_ps1)
@@ -114,8 +81,9 @@ function gitRepoFlags {
   echo -n "${str}"
 }
 
+# 'Safe' version of __git_ps1 to avoid errors on systems that don't have it
 function gitPrompt {
-  command -v __git_ps1 > /dev/null && __git_ps1 " (%s$(gitRepoFlags))"
+  command -v __git_ps1 > /dev/null && __git_ps1 " (%s)"
 }
 
 atC="${txtpur}"
@@ -138,6 +106,7 @@ if [ `hostname | cut -b1-3` == "gue" ]; then
   hostC="${txtblu}"
 fi
 
+# Patent Pending Prompt
 export PS1="${nameC}\u${atC}@${hostC}\h:${pathC}\w${gitC}\$(gitPrompt)${pointerC}▶${normalC} "
 
 # Local settings
