@@ -5,6 +5,7 @@ HISTFILESIZE=2000
 # append to the history file, don't overwrite it
 shopt -s histappend
 
+alias ll='ls -l'
 alias grep='grep --color=auto'
 
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
@@ -81,11 +82,6 @@ function gitRepoFlags {
   echo -n "${str}"
 }
 
-# 'Safe' version of __git_ps1 to avoid errors on systems that don't have it
-function gitPrompt {
-  command -v __git_ps1 > /dev/null && __git_ps1 " (%s)"
-}
-
 atC="${txtpur}"
 nameC="${txtpur}"
 hostC="${txtpur}"
@@ -106,8 +102,12 @@ if [ `hostname | cut -b1-3` == "gue" ]; then
   hostC="${txtblu}"
 fi
 
-# Patent Pending Prompt
-export PS1="${nameC}\u${atC}@${hostC}\h:${pathC}\w${gitC}\$(gitPrompt)${pointerC}▶${normalC} "
+# Git branch in prompt.
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+export PS1="\u@\h \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 # Local settings
 if [ -f ~/.localrc ]; then 

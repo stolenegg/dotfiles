@@ -28,7 +28,7 @@ function linkDotfile {
 linkDotfile .vim
 linkDotfile .vimrc
 linkDotfile .ackrc
-linkDotfile .bashrc
+linkDotfile .bash_profile
 linkDotfile .gitconfig
 linkDotfile .inputrc
 
